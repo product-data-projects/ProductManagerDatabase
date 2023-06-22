@@ -1,17 +1,19 @@
 ﻿#nullable disable
 
-using Microsoft.EntityFrameworkCore;
-using System.ComponentModel.DataAnnotations;
+using ProductManagerDatabase.Database.Interfaces;
 
 namespace ProductManagerDatabase.Database.Products
 {
 
-    public class Range
+    public class Range:IHasPrimaryKey
     {
 
         public string Name { get; set; }
 
         public string Description { get; set; }
+
+        void IHasPrimaryKey.SetPrimaryKey<TKeyType>(TKeyType key) => this.Name = key.ToString();
+
 
     }
 

@@ -5,11 +5,13 @@ using ProductManagerDatabase.Database.Interfaces;
 namespace ProductManagerDatabase.Database.Products
 {
 
-    public class Product : IHasSoftDelete
+    public class Product : IHasSoftDelete, IHasPrimaryKey
     {
 
         // primary key
         public int Id { get; set; }
+
+        void IHasPrimaryKey.SetPrimaryKey<TKeyType>(TKeyType key) => this.Id = int.Parse($"{key}");
 
 
         // properties - simple

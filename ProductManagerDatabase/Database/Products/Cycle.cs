@@ -1,19 +1,20 @@
 ﻿#nullable disable
 
-using Microsoft.EntityFrameworkCore;
+using ProductManagerDatabase.Database.Interfaces;
 
 namespace ProductManagerDatabase.Database.Products
 {
 
-    public class Cycle
+    public class Cycle: IHasPrimaryKey
     {
 
         public string Name { get; set; }
 
         public string Description { get; set; }
 
-        [Precision(4, 2)]
         public decimal PriorityIndex { get; set; }
+
+        void IHasPrimaryKey.SetPrimaryKey<TKeyType>(TKeyType key) => this.Name = key.ToString();
 
     }
 
