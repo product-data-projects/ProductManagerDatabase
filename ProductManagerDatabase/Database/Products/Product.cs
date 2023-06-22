@@ -1,9 +1,11 @@
 ﻿#nullable disable
 
+using ProductManagerDatabase.Database.Interfaces;
+
 namespace ProductManagerDatabase.Database.Products
 {
 
-    public class Product
+    public class Product : IHasSoftDelete
     {
 
         // primary key
@@ -27,7 +29,7 @@ namespace ProductManagerDatabase.Database.Products
         // date system properties
         public DateTimeOffset CreatedAt { get; set; }
         public DateTimeOffset UpdatedAt { get; set; }
-        public DateTimeOffset DeletedAt { get; set; }
+        public DateTimeOffset? DeletedAt { get; set; }
 
 
         // navigation - single

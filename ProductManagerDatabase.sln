@@ -3,7 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.5.33627.172
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProductManagerDatabase", "ProductManagerDatabase\ProductManagerDatabase.csproj", "{C2B470BC-AD51-4712-83FC-3408B258B53B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ProductManagerDatabase", "ProductManagerDatabase\ProductManagerDatabase.csproj", "{C2B470BC-AD51-4712-83FC-3408B258B53B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProductManagerREST", "ProductManagerREST\ProductManagerREST.csproj", "{2C755641-CB83-4C6D-8218-CAE7F5736420}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +17,10 @@ Global
 		{C2B470BC-AD51-4712-83FC-3408B258B53B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C2B470BC-AD51-4712-83FC-3408B258B53B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C2B470BC-AD51-4712-83FC-3408B258B53B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2C755641-CB83-4C6D-8218-CAE7F5736420}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2C755641-CB83-4C6D-8218-CAE7F5736420}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2C755641-CB83-4C6D-8218-CAE7F5736420}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2C755641-CB83-4C6D-8218-CAE7F5736420}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
