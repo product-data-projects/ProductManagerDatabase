@@ -16,9 +16,10 @@ namespace ProductManagerDatabase.Database
         public DbSet<Tag> Tags => base.Set<Tag>();
         public DbSet<Taxonomy> Taxonomies => base.Set<Taxonomy>();
 
-
-        protected override void OnConfiguring(DbContextOptionsBuilder options) => options.UseSqlServer("Server=sql-server;Database=ProductManager;user id=pm-user;password=076da4a79552;TrustServerCertificate=true;");
-
+        public ProductManagerContext() { }
+        public ProductManagerContext(DbContextOptions<ProductManagerContext> options) : base(options) { }
+     
+        protected override void OnConfiguring(DbContextOptionsBuilder options) => options.UseSqlServer("Server=portainer.ad0.roguelj.co.uk;Database=ProductManager;user id=pm-user;password=076da4a79552;TrustServerCertificate=true;");
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

@@ -1,0 +1,57 @@
+﻿@using ProductManagerUi.Extensions;
+@{
+    ViewData["Title"] = "Index";
+}
+
+@(
+Html.DevExtreme().DataGrid<ProductManagerDatabase.Database.Products.Product>()
+    .DataSource(ds => ds.Mvc()
+        .Controller("Product")
+        .LoadAction("Get")
+        .InsertAction("Post")
+        .UpdateAction("Put")
+        .DeleteAction("Delete")
+        .Key("Id")
+)
+.RemoteOperations(true)
+.Columns(columns =>
+{
+
+    columns.AddFor(m => m.Id);
+
+    columns.AddFor(m => m.Model);
+
+    columns.AddFor(m => m.RevisionCode);
+
+    columns.AddFor(m => m.Notes);
+
+    columns.AddFor(m => m.Description);
+
+    columns.AddFor(m => m.Width);
+
+    columns.AddFor(m => m.Height);
+
+    columns.AddFor(m => m.Depth);
+
+    columns.AddFor(m => m.Weight);
+
+    columns.AddFor(m => m.CreatedAt);
+
+    columns.AddFor(m => m.UpdatedAt);
+
+    columns.AddFor(m => m.DeletedAt);
+
+})
+.Editing(e =>
+    {
+        e.Mode(GridEditMode.Form)
+        .AllowAdding(true)
+        .RefreshMode(GridEditRefreshMode.Reshape)
+        .AllowDeleting(true)
+        .AllowUpdating(true)
+        .UseIcons(true);
+    })
+
+.DataSourceOptions(c => c.Sort("id", true))
+.SetDataGridDefaults()
+)
