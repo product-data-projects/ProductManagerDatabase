@@ -12,6 +12,7 @@ namespace ProductManagerDatabase.Database
         public DbSet<Manufacturer> Manufacturers => base.Set<Manufacturer>();
         public DbSet<Product> Products => base.Set<Product>();
         public DbSet<Products.Range> Ranges => base.Set<Products.Range>();
+        public DbSet<Stage> Stages => base.Set<Stage>();
         public DbSet<Status> Statuses => base.Set<Status>();
         public DbSet<Tag> Tags => base.Set<Tag>();
         public DbSet<Taxonomy> Taxonomies => base.Set<Taxonomy>();

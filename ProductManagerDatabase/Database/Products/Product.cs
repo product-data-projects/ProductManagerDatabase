@@ -5,13 +5,11 @@ using ProductManagerDatabase.Database.Interfaces;
 namespace ProductManagerDatabase.Database.Products
 {
 
-    public class Product : IHasSoftDelete, IHasPrimaryKey
+    public class Product : IHasSoftDelete
     {
 
         // primary key
         public int Id { get; set; }
-
-        void IHasPrimaryKey.SetPrimaryKey<TKeyType>(TKeyType key) => this.Id = int.Parse($"{key}");
 
 
         // properties - simple
@@ -36,11 +34,19 @@ namespace ProductManagerDatabase.Database.Products
 
         // navigation - single
         public Brand Brand { get; set; }
-        public Range Range { get; set; }
-        public Taxonomy Taxonomy { get; set; }
-        public Cycle Cycle { get; set; }
-        public Status Status { get; set; }
+        public int BrandId { get; set; }
 
+        public Range Range { get; set; }
+        public int RangeId { get; set; }
+
+        public Taxonomy Taxonomy { get; set; }
+        public int TaxonomyId { get; set; }
+
+        public Cycle Cycle { get; set; }
+        public int CycleId { get; set; }
+
+        public Status Status { get; set; }
+        public int StatusId { get; set; }
 
         // navigation - many
         public List<Manufacturer> Manufacturers { get; set; }

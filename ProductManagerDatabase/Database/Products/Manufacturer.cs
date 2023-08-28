@@ -1,13 +1,13 @@
 ﻿#nullable disable
 
 
-using ProductManagerDatabase.Database.Interfaces;
-
 namespace ProductManagerDatabase.Database.Products
 {
 
-    public class Manufacturer:IHasPrimaryKey
+    public class Manufacturer
     {
+
+        public int Id { get; set; }
 
         public string Name { get; set; }
 
@@ -15,7 +15,6 @@ namespace ProductManagerDatabase.Database.Products
 
         public List<Product> Products { get; set; }
 
-        void IHasPrimaryKey.SetPrimaryKey<TKeyType>(TKeyType key) => this.Name = key.ToString();
     }
 
 }

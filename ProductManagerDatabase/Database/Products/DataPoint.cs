@@ -5,7 +5,7 @@ using ProductManagerDatabase.Database.Interfaces;
 namespace ProductManagerDatabase.Database.Products
 {
 
-    public class DataPoint:IHasPrimaryKey
+    public class DataPoint
     {
         public int Id { get; set; }
 
@@ -13,7 +13,6 @@ namespace ProductManagerDatabase.Database.Products
 
         public List<ProductDataPoint> ProductDataPoints { get; set; }
 
-        void IHasPrimaryKey.SetPrimaryKey<TKeyType>(TKeyType key) => this.Id = int.Parse($"{key}");
 
     }
 

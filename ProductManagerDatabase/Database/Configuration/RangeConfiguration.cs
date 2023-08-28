@@ -11,7 +11,7 @@ namespace ProductManagerDatabase.Database.Configuration
         {
 
             // keys
-            builder.HasKey(e => e.Name);
+            builder.HasKey(e => e.Id);
 
             // properties
             builder.Property(p => p.Name).HasMaxLength(32);

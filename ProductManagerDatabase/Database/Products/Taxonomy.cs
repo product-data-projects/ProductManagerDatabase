@@ -1,10 +1,9 @@
 ﻿#nullable disable
 
-using ProductManagerDatabase.Database.Interfaces;
 
 namespace ProductManagerDatabase.Database.Products
 {
-    public class Taxonomy:IHasPrimaryKey
+    public class Taxonomy
     {
 
         public int Id { get; set; }
@@ -16,8 +15,6 @@ namespace ProductManagerDatabase.Database.Products
         public string TertiaryType { get; set; }
 
         public string QuaternaryType { get; set; }
-
-        void IHasPrimaryKey.SetPrimaryKey<TKeyType>(TKeyType key) => this.Id = int.Parse($"{key}");
 
     }
 

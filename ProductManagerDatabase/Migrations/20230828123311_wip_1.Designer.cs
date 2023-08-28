@@ -12,8 +12,8 @@ using ProductManagerDatabase.Database;
 namespace ProductManagerDatabase.Migrations
 {
     [DbContext(typeof(ProductManagerContext))]
-    [Migration("20230827140304_deleted_at_can_be_null")]
-    partial class deleted_at_can_be_null
+    [Migration("20230828123311_wip_1")]
+    partial class wip_1
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -27,13 +27,13 @@ namespace ProductManagerDatabase.Migrations
 
             modelBuilder.Entity("ManufacturerProduct", b =>
                 {
-                    b.Property<string>("ManufacturersName")
-                        .HasColumnType("nvarchar(32)");
+                    b.Property<int>("ManufacturersId")
+                        .HasColumnType("int");
 
                     b.Property<int>("ProductsId")
                         .HasColumnType("int");
 
-                    b.HasKey("ManufacturersName", "ProductsId");
+                    b.HasKey("ManufacturersId", "ProductsId");
 
                     b.HasIndex("ProductsId");
 
@@ -42,15 +42,21 @@ namespace ProductManagerDatabase.Migrations
 
             modelBuilder.Entity("ProductManagerDatabase.Database.Products.Brand", b =>
                 {
-                    b.Property<string>("Name")
-                        .HasMaxLength(32)
-                        .HasColumnType("nvarchar(32)");
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<string>("Description")
                         .HasMaxLength(64)
                         .HasColumnType("nvarchar(64)");
 
-                    b.HasKey("Name");
+                    b.Property<string>("Name")
+                        .HasMaxLength(32)
+                        .HasColumnType("nvarchar(32)");
+
+                    b.HasKey("Id");
 
                     b.HasIndex("Description")
                         .IsUnique()
@@ -61,11 +67,17 @@ namespace ProductManagerDatabase.Migrations
 
             modelBuilder.Entity("ProductManagerDatabase.Database.Products.Cycle", b =>
                 {
-                    b.Property<string>("Name")
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Description")
                         .HasMaxLength(32)
                         .HasColumnType("nvarchar(32)");
 
-                    b.Property<string>("Description")
+                    b.Property<string>("Name")
                         .HasMaxLength(32)
                         .HasColumnType("nvarchar(32)");
 
@@ -73,7 +85,7 @@ namespace ProductManagerDatabase.Migrations
                         .HasPrecision(4, 2)
                         .HasColumnType("decimal(4,2)");
 
-                    b.HasKey("Name");
+                    b.HasKey("Id");
 
                     b.HasIndex("Description")
                         .IsUnique()
@@ -105,15 +117,21 @@ namespace ProductManagerDatabase.Migrations
 
             modelBuilder.Entity("ProductManagerDatabase.Database.Products.Manufacturer", b =>
                 {
-                    b.Property<string>("Name")
-                        .HasMaxLength(32)
-                        .HasColumnType("nvarchar(32)");
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<string>("Description")
                         .HasMaxLength(64)
                         .HasColumnType("nvarchar(64)");
 
-                    b.HasKey("Name");
+                    b.Property<string>("Name")
+                        .HasMaxLength(32)
+                        .HasColumnType("nvarchar(32)");
+
+                    b.HasKey("Id");
 
                     b.HasIndex("Description")
                         .IsUnique()
@@ -130,14 +148,14 @@ namespace ProductManagerDatabase.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<string>("BrandName")
-                        .HasColumnType("nvarchar(32)");
+                    b.Property<int>("BrandId")
+                        .HasColumnType("int");
 
                     b.Property<DateTimeOffset>("CreatedAt")
                         .HasColumnType("datetimeoffset");
 
-                    b.Property<string>("CycleName")
-                        .HasColumnType("nvarchar(32)");
+                    b.Property<int?>("CycleId")
+                        .HasColumnType("int");
 
                     b.Property<DateTimeOffset?>("DeletedAt")
                         .HasColumnType("datetimeoffset");
@@ -173,16 +191,16 @@ namespace ProductManagerDatabase.Migrations
                         .HasColumnType("datetime2")
                         .HasColumnName("PeriodStart");
 
-                    b.Property<string>("RangeName")
-                        .HasColumnType("nvarchar(32)");
+                    b.Property<int?>("RangeId")
+                        .HasColumnType("int");
 
                     b.Property<string>("RevisionCode")
                         .IsRequired()
                         .HasMaxLength(4)
                         .HasColumnType("nvarchar(4)");
 
-                    b.Property<string>("StatusName")
-                        .HasColumnType("nvarchar(32)");
+                    b.Property<int?>("StatusId")
+                        .HasColumnType("int");
 
                     b.Property<int?>("TaxonomyId")
                         .HasColumnType("int");
@@ -200,13 +218,13 @@ namespace ProductManagerDatabase.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("BrandName");
+                    b.HasIndex("BrandId");
 
-                    b.HasIndex("CycleName");
+                    b.HasIndex("CycleId");
 
-                    b.HasIndex("RangeName");
+                    b.HasIndex("RangeId");
 
-                    b.HasIndex("StatusName");
+                    b.HasIndex("StatusId");
 
                     b.HasIndex("TaxonomyId");
 
@@ -267,29 +285,35 @@ namespace ProductManagerDatabase.Migrations
                     b.Property<DateTimeOffset>("StageAt")
                         .HasColumnType("datetimeoffset");
 
-                    b.Property<string>("StageName")
-                        .HasColumnType("nvarchar(32)");
+                    b.Property<int?>("StageId")
+                        .HasColumnType("int");
 
                     b.HasKey("Id");
 
                     b.HasIndex("ProductId");
 
-                    b.HasIndex("StageName");
+                    b.HasIndex("StageId");
 
                     b.ToTable("ProductStage");
                 });
 
             modelBuilder.Entity("ProductManagerDatabase.Database.Products.Range", b =>
                 {
-                    b.Property<string>("Name")
-                        .HasMaxLength(32)
-                        .HasColumnType("nvarchar(32)");
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<string>("Description")
                         .HasMaxLength(64)
                         .HasColumnType("nvarchar(64)");
 
-                    b.HasKey("Name");
+                    b.Property<string>("Name")
+                        .HasMaxLength(32)
+                        .HasColumnType("nvarchar(32)");
+
+                    b.HasKey("Id");
 
                     b.HasIndex("Description")
                         .IsUnique()
@@ -300,30 +324,42 @@ namespace ProductManagerDatabase.Migrations
 
             modelBuilder.Entity("ProductManagerDatabase.Database.Products.Stage", b =>
                 {
-                    b.Property<string>("Name")
-                        .HasMaxLength(32)
-                        .HasColumnType("nvarchar(32)");
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<string>("Description")
                         .HasMaxLength(64)
                         .HasColumnType("nvarchar(64)");
 
-                    b.HasKey("Name");
+                    b.Property<string>("Name")
+                        .HasMaxLength(32)
+                        .HasColumnType("nvarchar(32)");
+
+                    b.HasKey("Id");
 
                     b.HasIndex("Description")
                         .IsUnique()
                         .HasFilter("[Description] IS NOT NULL");
 
-                    b.ToTable("Stage");
+                    b.ToTable("Stages");
                 });
 
             modelBuilder.Entity("ProductManagerDatabase.Database.Products.Status", b =>
                 {
-                    b.Property<string>("Name")
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Description")
                         .HasMaxLength(32)
                         .HasColumnType("nvarchar(32)");
 
-                    b.Property<string>("Description")
+                    b.Property<string>("Name")
                         .HasMaxLength(32)
                         .HasColumnType("nvarchar(32)");
 
@@ -331,7 +367,7 @@ namespace ProductManagerDatabase.Migrations
                         .HasPrecision(4, 2)
                         .HasColumnType("decimal(4,2)");
 
-                    b.HasKey("Name");
+                    b.HasKey("Id");
 
                     b.HasIndex("Description")
                         .IsUnique()
@@ -421,7 +457,7 @@ namespace ProductManagerDatabase.Migrations
                 {
                     b.HasOne("ProductManagerDatabase.Database.Products.Manufacturer", null)
                         .WithMany()
-                        .HasForeignKey("ManufacturersName")
+                        .HasForeignKey("ManufacturersId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -436,19 +472,21 @@ namespace ProductManagerDatabase.Migrations
                 {
                     b.HasOne("ProductManagerDatabase.Database.Products.Brand", "Brand")
                         .WithMany()
-                        .HasForeignKey("BrandName");
+                        .HasForeignKey("BrandId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.HasOne("ProductManagerDatabase.Database.Products.Cycle", "Cycle")
                         .WithMany()
-                        .HasForeignKey("CycleName");
+                        .HasForeignKey("CycleId");
 
                     b.HasOne("ProductManagerDatabase.Database.Products.Range", "Range")
                         .WithMany()
-                        .HasForeignKey("RangeName");
+                        .HasForeignKey("RangeId");
 
                     b.HasOne("ProductManagerDatabase.Database.Products.Status", "Status")
                         .WithMany()
-                        .HasForeignKey("StatusName");
+                        .HasForeignKey("StatusId");
 
                     b.HasOne("ProductManagerDatabase.Database.Products.Taxonomy", "Taxonomy")
                         .WithMany()
@@ -488,7 +526,7 @@ namespace ProductManagerDatabase.Migrations
 
                     b.HasOne("ProductManagerDatabase.Database.Products.Stage", "Stage")
                         .WithMany("ProductStages")
-                        .HasForeignKey("StageName");
+                        .HasForeignKey("StageId");
 
                     b.Navigation("Product");
 

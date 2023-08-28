@@ -1,7 +1,10 @@
-﻿@using ProductManagerUi.Extensions;
+﻿@using ProductManagerUi.Controllers;
+@using ProductManagerUi.Extensions;
 @{
     ViewData["Title"] = "Index";
 }
+
+<div class="moduleHeader">@ViewData["Title"]</div>
 
 @(
 Html.DevExtreme().DataGrid<ProductManagerDatabase.Database.Products.Product>()
@@ -17,7 +20,7 @@ Html.DevExtreme().DataGrid<ProductManagerDatabase.Database.Products.Product>()
 .Columns(columns =>
 {
 
-    columns.AddFor(m => m.Id);
+    columns.AddFor(m => m.Id).AllowEditing(false).FormItem(f => f.Visible(false));
 
     columns.AddFor(m => m.Model);
 
@@ -35,16 +38,12 @@ Html.DevExtreme().DataGrid<ProductManagerDatabase.Database.Products.Product>()
 
     columns.AddFor(m => m.Weight);
 
-    columns.AddFor(m => m.CreatedAt);
-
-    columns.AddFor(m => m.UpdatedAt);
-
-    columns.AddFor(m => m.DeletedAt);
+    columns.AddFor(m => m.BrandId).Lookup(BrandController.ProvideLookup);
 
 })
 .Editing(e =>
     {
-        e.Mode(GridEditMode.Form)
+        e.Mode(GridEditMode.Popup)
         .AllowAdding(true)
         .RefreshMode(GridEditRefreshMode.Reshape)
         .AllowDeleting(true)

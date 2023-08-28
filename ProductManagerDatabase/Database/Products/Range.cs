@@ -1,18 +1,16 @@
 ﻿#nullable disable
 
-using ProductManagerDatabase.Database.Interfaces;
-
 namespace ProductManagerDatabase.Database.Products
 {
 
-    public class Range:IHasPrimaryKey
+    public class Range
     {
+
+        public int Id { get; set; }
 
         public string Name { get; set; }
 
         public string Description { get; set; }
-
-        void IHasPrimaryKey.SetPrimaryKey<TKeyType>(TKeyType key) => this.Name = key.ToString();
 
 
     }

@@ -1,12 +1,13 @@
 ﻿#nullable disable
 
-using ProductManagerDatabase.Database.Interfaces;
 
 namespace ProductManagerDatabase.Database.Products
 {
 
-    public class Stage : IHasPrimaryKey
+    public class Stage 
     {
+
+        public int Id { get; set; }
 
         public string Name { get; set; }
 
@@ -14,7 +15,6 @@ namespace ProductManagerDatabase.Database.Products
 
         public List<ProductStage> ProductStages { get; set; }
 
-        void IHasPrimaryKey.SetPrimaryKey<TKeyType>(TKeyType key) => this.Name = key.ToString();
 
     }
 

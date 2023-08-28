@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace ProductManagerDatabase.Migrations
 {
     /// <inheritdoc />
-    public partial class InitialCreate : Migration
+    public partial class wip_1 : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -15,25 +15,29 @@ namespace ProductManagerDatabase.Migrations
                 name: "Brands",
                 columns: table => new
                 {
-                    Name = table.Column<string>(type: "nvarchar(32)", maxLength: 32, nullable: false),
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Name = table.Column<string>(type: "nvarchar(32)", maxLength: 32, nullable: true),
                     Description = table.Column<string>(type: "nvarchar(64)", maxLength: 64, nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Brands", x => x.Name);
+                    table.PrimaryKey("PK_Brands", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
                 name: "Cycles",
                 columns: table => new
                 {
-                    Name = table.Column<string>(type: "nvarchar(32)", maxLength: 32, nullable: false),
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Name = table.Column<string>(type: "nvarchar(32)", maxLength: 32, nullable: true),
                     Description = table.Column<string>(type: "nvarchar(32)", maxLength: 32, nullable: true),
                     PriorityIndex = table.Column<decimal>(type: "decimal(4,2)", precision: 4, scale: 2, nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Cycles", x => x.Name);
+                    table.PrimaryKey("PK_Cycles", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -53,49 +57,57 @@ namespace ProductManagerDatabase.Migrations
                 name: "Manufacturers",
                 columns: table => new
                 {
-                    Name = table.Column<string>(type: "nvarchar(32)", maxLength: 32, nullable: false),
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Name = table.Column<string>(type: "nvarchar(32)", maxLength: 32, nullable: true),
                     Description = table.Column<string>(type: "nvarchar(64)", maxLength: 64, nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Manufacturers", x => x.Name);
+                    table.PrimaryKey("PK_Manufacturers", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
                 name: "Ranges",
                 columns: table => new
                 {
-                    Name = table.Column<string>(type: "nvarchar(32)", maxLength: 32, nullable: false),
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Name = table.Column<string>(type: "nvarchar(32)", maxLength: 32, nullable: true),
                     Description = table.Column<string>(type: "nvarchar(64)", maxLength: 64, nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Ranges", x => x.Name);
+                    table.PrimaryKey("PK_Ranges", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
-                name: "Stage",
+                name: "Stages",
                 columns: table => new
                 {
-                    Name = table.Column<string>(type: "nvarchar(32)", maxLength: 32, nullable: false),
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Name = table.Column<string>(type: "nvarchar(32)", maxLength: 32, nullable: true),
                     Description = table.Column<string>(type: "nvarchar(64)", maxLength: 64, nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Stage", x => x.Name);
+                    table.PrimaryKey("PK_Stages", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
                 name: "Statuses",
                 columns: table => new
                 {
-                    Name = table.Column<string>(type: "nvarchar(32)", maxLength: 32, nullable: false),
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Name = table.Column<string>(type: "nvarchar(32)", maxLength: 32, nullable: true),
                     Description = table.Column<string>(type: "nvarchar(32)", maxLength: 32, nullable: true),
                     PriorityIndex = table.Column<decimal>(type: "decimal(4,2)", precision: 4, scale: 2, nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Statuses", x => x.Name);
+                    table.PrimaryKey("PK_Statuses", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -200,19 +212,19 @@ namespace ProductManagerDatabase.Migrations
                         .Annotation("SqlServer:TemporalHistoryTableSchema", null)
                         .Annotation("SqlServer:TemporalPeriodEndColumnName", "PeriodEnd")
                         .Annotation("SqlServer:TemporalPeriodStartColumnName", "PeriodStart"),
-                    DeletedAt = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: false)
+                    DeletedAt = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: true)
                         .Annotation("SqlServer:IsTemporal", true)
                         .Annotation("SqlServer:TemporalHistoryTableName", "ProductsHistory")
                         .Annotation("SqlServer:TemporalHistoryTableSchema", null)
                         .Annotation("SqlServer:TemporalPeriodEndColumnName", "PeriodEnd")
                         .Annotation("SqlServer:TemporalPeriodStartColumnName", "PeriodStart"),
-                    BrandName = table.Column<string>(type: "nvarchar(32)", nullable: true)
+                    BrandId = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:IsTemporal", true)
                         .Annotation("SqlServer:TemporalHistoryTableName", "ProductsHistory")
                         .Annotation("SqlServer:TemporalHistoryTableSchema", null)
                         .Annotation("SqlServer:TemporalPeriodEndColumnName", "PeriodEnd")
                         .Annotation("SqlServer:TemporalPeriodStartColumnName", "PeriodStart"),
-                    RangeName = table.Column<string>(type: "nvarchar(32)", nullable: true)
+                    RangeId = table.Column<int>(type: "int", nullable: true)
                         .Annotation("SqlServer:IsTemporal", true)
                         .Annotation("SqlServer:TemporalHistoryTableName", "ProductsHistory")
                         .Annotation("SqlServer:TemporalHistoryTableSchema", null)
@@ -224,13 +236,13 @@ namespace ProductManagerDatabase.Migrations
                         .Annotation("SqlServer:TemporalHistoryTableSchema", null)
                         .Annotation("SqlServer:TemporalPeriodEndColumnName", "PeriodEnd")
                         .Annotation("SqlServer:TemporalPeriodStartColumnName", "PeriodStart"),
-                    CycleName = table.Column<string>(type: "nvarchar(32)", nullable: true)
+                    CycleId = table.Column<int>(type: "int", nullable: true)
                         .Annotation("SqlServer:IsTemporal", true)
                         .Annotation("SqlServer:TemporalHistoryTableName", "ProductsHistory")
                         .Annotation("SqlServer:TemporalHistoryTableSchema", null)
                         .Annotation("SqlServer:TemporalPeriodEndColumnName", "PeriodEnd")
                         .Annotation("SqlServer:TemporalPeriodStartColumnName", "PeriodStart"),
-                    StatusName = table.Column<string>(type: "nvarchar(32)", nullable: true)
+                    StatusId = table.Column<int>(type: "int", nullable: true)
                         .Annotation("SqlServer:IsTemporal", true)
                         .Annotation("SqlServer:TemporalHistoryTableName", "ProductsHistory")
                         .Annotation("SqlServer:TemporalHistoryTableSchema", null)
@@ -253,25 +265,26 @@ namespace ProductManagerDatabase.Migrations
                 {
                     table.PrimaryKey("PK_Products", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Products_Brands_BrandName",
-                        column: x => x.BrandName,
+                        name: "FK_Products_Brands_BrandId",
+                        column: x => x.BrandId,
                         principalTable: "Brands",
-                        principalColumn: "Name");
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_Products_Cycles_CycleName",
-                        column: x => x.CycleName,
+                        name: "FK_Products_Cycles_CycleId",
+                        column: x => x.CycleId,
                         principalTable: "Cycles",
-                        principalColumn: "Name");
+                        principalColumn: "Id");
                     table.ForeignKey(
-                        name: "FK_Products_Ranges_RangeName",
-                        column: x => x.RangeName,
+                        name: "FK_Products_Ranges_RangeId",
+                        column: x => x.RangeId,
                         principalTable: "Ranges",
-                        principalColumn: "Name");
+                        principalColumn: "Id");
                     table.ForeignKey(
-                        name: "FK_Products_Statuses_StatusName",
-                        column: x => x.StatusName,
+                        name: "FK_Products_Statuses_StatusId",
+                        column: x => x.StatusId,
                         principalTable: "Statuses",
-                        principalColumn: "Name");
+                        principalColumn: "Id");
                     table.ForeignKey(
                         name: "FK_Products_Taxonomies_TaxonomyId",
                         column: x => x.TaxonomyId,
@@ -288,17 +301,17 @@ namespace ProductManagerDatabase.Migrations
                 name: "ManufacturerProduct",
                 columns: table => new
                 {
-                    ManufacturersName = table.Column<string>(type: "nvarchar(32)", nullable: false),
+                    ManufacturersId = table.Column<int>(type: "int", nullable: false),
                     ProductsId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_ManufacturerProduct", x => new { x.ManufacturersName, x.ProductsId });
+                    table.PrimaryKey("PK_ManufacturerProduct", x => new { x.ManufacturersId, x.ProductsId });
                     table.ForeignKey(
-                        name: "FK_ManufacturerProduct_Manufacturers_ManufacturersName",
-                        column: x => x.ManufacturersName,
+                        name: "FK_ManufacturerProduct_Manufacturers_ManufacturersId",
+                        column: x => x.ManufacturersId,
                         principalTable: "Manufacturers",
-                        principalColumn: "Name",
+                        principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "FK_ManufacturerProduct_Products_ProductsId",
@@ -340,7 +353,7 @@ namespace ProductManagerDatabase.Migrations
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     ProductId = table.Column<int>(type: "int", nullable: true),
-                    StageName = table.Column<string>(type: "nvarchar(32)", nullable: true),
+                    StageId = table.Column<int>(type: "int", nullable: true),
                     StageAt = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: false)
                 },
                 constraints: table =>
@@ -352,10 +365,10 @@ namespace ProductManagerDatabase.Migrations
                         principalTable: "Products",
                         principalColumn: "Id");
                     table.ForeignKey(
-                        name: "FK_ProductStage_Stage_StageName",
-                        column: x => x.StageName,
-                        principalTable: "Stage",
-                        principalColumn: "Name");
+                        name: "FK_ProductStage_Stages_StageId",
+                        column: x => x.StageId,
+                        principalTable: "Stages",
+                        principalColumn: "Id");
                 });
 
             migrationBuilder.CreateTable(
@@ -426,14 +439,14 @@ namespace ProductManagerDatabase.Migrations
                 column: "ProductId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Products_BrandName",
+                name: "IX_Products_BrandId",
                 table: "Products",
-                column: "BrandName");
+                column: "BrandId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Products_CycleName",
+                name: "IX_Products_CycleId",
                 table: "Products",
-                column: "CycleName");
+                column: "CycleId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Products_Model_RevisionCode",
@@ -442,14 +455,14 @@ namespace ProductManagerDatabase.Migrations
                 unique: true);
 
             migrationBuilder.CreateIndex(
-                name: "IX_Products_RangeName",
+                name: "IX_Products_RangeId",
                 table: "Products",
-                column: "RangeName");
+                column: "RangeId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Products_StatusName",
+                name: "IX_Products_StatusId",
                 table: "Products",
-                column: "StatusName");
+                column: "StatusId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Products_TaxonomyId",
@@ -462,9 +475,9 @@ namespace ProductManagerDatabase.Migrations
                 column: "ProductId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_ProductStage_StageName",
+                name: "IX_ProductStage_StageId",
                 table: "ProductStage",
-                column: "StageName");
+                column: "StageId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_ProductTag_TagsId",
@@ -479,8 +492,8 @@ namespace ProductManagerDatabase.Migrations
                 filter: "[Description] IS NOT NULL");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Stage_Description",
-                table: "Stage",
+                name: "IX_Stages_Description",
+                table: "Stages",
                 column: "Description",
                 unique: true,
                 filter: "[Description] IS NOT NULL");
@@ -529,7 +542,7 @@ namespace ProductManagerDatabase.Migrations
                 name: "DataPoints");
 
             migrationBuilder.DropTable(
-                name: "Stage");
+                name: "Stages");
 
             migrationBuilder.DropTable(
                 name: "Products")
