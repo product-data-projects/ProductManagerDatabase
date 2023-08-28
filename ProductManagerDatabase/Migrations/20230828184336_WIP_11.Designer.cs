@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using ProductManagerDatabase.Database;
 
@@ -11,9 +12,11 @@ using ProductManagerDatabase.Database;
 namespace ProductManagerDatabase.Migrations
 {
     [DbContext(typeof(ProductManagerContext))]
-    partial class ProductManagerContextModelSnapshot : ModelSnapshot
+    [Migration("20230828184336_WIP_11")]
+    partial class WIP_11
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -157,17 +160,18 @@ namespace ProductManagerDatabase.Migrations
                     b.Property<DateTimeOffset?>("DeletedAt")
                         .HasColumnType("datetimeoffset");
 
-                    b.Property<decimal?>("Depth")
+                    b.Property<decimal>("Depth")
                         .HasPrecision(20, 4)
                         .HasColumnType("decimal(20,4)");
 
-                    b.Property<decimal?>("Height")
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasMaxLength(256)
+                        .HasColumnType("nvarchar(256)");
+
+                    b.Property<decimal>("Height")
                         .HasPrecision(20, 4)
                         .HasColumnType("decimal(20,4)");
-
-                    b.Property<string>("LongDescription")
-                        .HasMaxLength(900)
-                        .HasColumnType("nvarchar(900)");
 
                     b.Property<string>("Model")
                         .IsRequired()
@@ -195,10 +199,6 @@ namespace ProductManagerDatabase.Migrations
                         .HasMaxLength(4)
                         .HasColumnType("nvarchar(4)");
 
-                    b.Property<string>("ShortDescription")
-                        .HasMaxLength(256)
-                        .HasColumnType("nvarchar(256)");
-
                     b.Property<int?>("StatusId")
                         .HasColumnType("int");
 
@@ -208,11 +208,11 @@ namespace ProductManagerDatabase.Migrations
                     b.Property<DateTimeOffset>("UpdatedAt")
                         .HasColumnType("datetimeoffset");
 
-                    b.Property<decimal?>("Weight")
+                    b.Property<decimal>("Weight")
                         .HasPrecision(20, 4)
                         .HasColumnType("decimal(20,4)");
 
-                    b.Property<decimal?>("Width")
+                    b.Property<decimal>("Width")
                         .HasPrecision(20, 4)
                         .HasColumnType("decimal(20,4)");
 

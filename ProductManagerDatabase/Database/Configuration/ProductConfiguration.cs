@@ -20,7 +20,9 @@ namespace ProductManagerDatabase.Database.Configuration
             // properties
             builder.Property(p => p.Model).HasMaxLength(64).IsRequired();
             builder.Property(p => p.RevisionCode).HasMaxLength(4).IsRequired();
-            builder.Property(p => p.Description).HasMaxLength(256).IsRequired();
+            builder.Property(p => p.ShortDescription).HasMaxLength(256);
+            builder.Property(p => p.LongDescription).HasMaxLength(900);
+
             builder.Property(p => p.Weight).HasPrecision(20, 4);
             builder.Property(p => p.Height).HasPrecision(20, 4);
             builder.Property(p => p.Width).HasPrecision(20, 4);

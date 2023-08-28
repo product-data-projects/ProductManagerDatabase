@@ -1,9 +1,8 @@
 ﻿using DevExtreme.AspNet.Data.ResponseModel;
 using DevExtreme.AspNet.Mvc;
-using ProductManagerDatabase.Database.Products;
+using DevExtreme.AspNet.Mvc.Builders;
 using ProductManagerDatabase.Database;
 using Range = ProductManagerDatabase.Database.Products.Range;
-using DevExtreme.AspNet.Mvc.Builders;
 
 namespace ProductManagerUi.Controllers
 {
@@ -19,6 +18,14 @@ namespace ProductManagerUi.Controllers
         {
 
         }
+
+        public static void ProvideLookup(DataGridColumnLookupBuilder lookup)
+        {
+            lookup.DataSource(d => d.Mvc().Controller("Range").LoadAction("Get").Key(nameof(Range.Id)))
+                    .DisplayExpr(nameof(Range.Name))
+                    .ValueExpr(nameof(Range.Id));
+        }
+
 
     }
 

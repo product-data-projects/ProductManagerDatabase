@@ -1,7 +1,8 @@
-﻿@using ProductManagerUi.Controllers;
+﻿@using ProductManagerDatabase.Database.Products;
+@using ProductManagerUi.Controllers;
 @using ProductManagerUi.Extensions;
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "Products";
 }
 
 <div class="moduleHeader">@ViewData["Title"]</div>
@@ -20,15 +21,22 @@ Html.DevExtreme().DataGrid<ProductManagerDatabase.Database.Products.Product>()
 .Columns(columns =>
 {
 
-    columns.AddFor(m => m.Id).AllowEditing(false).FormItem(f => f.Visible(false));
+    columns.AddFor(m => m.Id).AllowEditing(false).FormItem(f => f.Visible(false)).Fixed(true);
 
-    columns.AddFor(m => m.Model);
+    columns.AddFor(m => m.Model).Fixed(true);
 
-    columns.AddFor(m => m.RevisionCode);
+    columns.AddFor(m => m.RevisionCode).Fixed(true);
 
     columns.AddFor(m => m.Notes);
 
-    columns.AddFor(m => m.Description);
+    columns.AddFor(m => m.ShortDescription);
+    columns.AddFor(m => m.LongDescription).FormItem(i => i
+                    .Editor(e => e
+                        .TextArea()
+                        .InputAttr("aria-label", "Long Description")
+                        .Height(100))
+                    .ColSpan(2)
+                ); 
 
     columns.AddFor(m => m.Width);
 
@@ -39,6 +47,9 @@ Html.DevExtreme().DataGrid<ProductManagerDatabase.Database.Products.Product>()
     columns.AddFor(m => m.Weight);
 
     columns.AddFor(m => m.BrandId).Lookup(BrandController.ProvideLookup);
+    columns.AddFor(m => m.RangeId).Lookup(RangeController.ProvideLookup);
+    columns.AddFor(m => m.TaxonomyId).Lookup(TaxonomyController.ProvideLookup).EditCellTemplate(new TemplateName("TaxoDropDownBoxTemplate"));
+    columns.AddFor(m => m.CycleId).Lookup(CycleController.ProvideLookup);
 
 })
 .Editing(e =>
@@ -51,6 +62,59 @@ Html.DevExtreme().DataGrid<ProductManagerDatabase.Database.Products.Product>()
         .UseIcons(true);
     })
 
-.DataSourceOptions(c => c.Sort("id", true))
 .SetDataGridDefaults()
 )
+
+@using (Html.DevExtreme().NamedTemplate("TaxoDropDownBoxTemplate"))
+{
+    @(Html.DevExtreme().DropDownBox()
+            .DataSource(TaxonomyController.DataSourceFactory)
+            .Value(new JS("value"))
+            .ValueExpr("Id")
+            .InputAttr("aria-label", "Taxonomy")
+             .DisplayExpr("PrimaryType")
+            .DropDownOptions(options => options.Width(600))
+            .Option("setValue", new JS("setValue"))
+                .ContentTemplate(new TemplateName("TaxoContentTemplate"))
+            )
+}
+
+@using (Html.DevExtreme().NamedTemplate("TaxoContentTemplate"))
+{
+    @(Html.DevExtreme().DataGrid<Taxonomy>()
+            .DataSource(TaxonomyController.DataSourceFactory)
+            .RemoteOperations(true)
+            .Height(400)
+            .Columns(c =>
+            {
+                c.AddFor(t => t.PrimaryType);
+                c.AddFor(t => t.SecondaryType);
+                c.AddFor(t => t.TertiaryType);
+                c.AddFor(t => t.QuaternaryType);
+            })
+            .Scrolling(s => s.Mode(GridScrollingMode.Virtual))
+            .HoverStateEnabled(true)
+            .Selection(s => s.Mode(SelectionMode.Single))
+            .SelectedRowKeys(new JS("[component.option('value')]"))
+            .FocusedRowEnabled(true)
+            .FocusedRowKey(new JS("component.option('value')"))
+            .OnSelectionChanged("function(selectionChangedArgs) { onSelectionChanged(selectionChangedArgs, component) }")
+            .SearchPanel(sp => sp.Visible(true))
+            )
+}
+
+
+<script>
+
+    function onSelectionChanged(selectionChangedArgs, component) {
+        var setValue = component.option('setValue');
+        var selectedRowKey = selectionChangedArgs.selectedRowKeys[0];
+
+        component.option('value', selectedRowKey);
+        setValue(selectedRowKey);
+        if (selectionChangedArgs.selectedRowKeys.length > 0) {
+            component.close();
+        }
+    }
+
+</script>

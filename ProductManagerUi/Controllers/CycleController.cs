@@ -21,5 +21,14 @@ namespace ProductManagerUi.Controllers
 
         }
 
+        public static void ProvideLookup(DataGridColumnLookupBuilder lookup)
+        {
+            lookup.DataSource(d => d.Mvc().Controller("Cycle").LoadAction("Get").Key(nameof(Cycle.Id)))
+                    .DisplayExpr(nameof(Cycle.Name))
+                    .ValueExpr(nameof(Cycle.Id));
+        }
+
+
     }
+
 }

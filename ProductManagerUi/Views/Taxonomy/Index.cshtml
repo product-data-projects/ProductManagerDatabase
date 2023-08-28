@@ -14,7 +14,7 @@ Html.DevExtreme().DataGrid<ProductManagerDatabase.Database.Products.Taxonomy>()
         .InsertAction("Post")
         .UpdateAction("Put")
         .DeleteAction("Delete")
-        .Key("Name")
+        .Key("Id")
 )
 .RemoteOperations(true)
 .Columns(columns =>
@@ -37,6 +37,5 @@ Html.DevExtreme().DataGrid<ProductManagerDatabase.Database.Products.Taxonomy>()
         .UseIcons(true);
     })
 
-.DataSourceOptions(c => c.Sort("name", false))
 .SetDataGridDefaults(false, false)
 )

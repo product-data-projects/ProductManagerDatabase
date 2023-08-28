@@ -1,6 +1,6 @@
 ﻿@using ProductManagerUi.Extensions;
 @{
-    ViewData["Title"] = "Cycles";
+    ViewData["Title"] = "Manufacturers";
 }
 
 <div class="moduleHeader">@ViewData["Title"]</div>
@@ -34,6 +34,5 @@ Html.DevExtreme().DataGrid<ProductManagerDatabase.Database.Products.Manufacturer
         .UseIcons(true);
     })
 
-.DataSourceOptions(c => c.Sort("name", false))
 .SetDataGridDefaults(false, false)
 )
